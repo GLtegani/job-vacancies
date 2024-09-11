@@ -1,6 +1,6 @@
 package com.jobs.job_vacancies.entities.vacancyApplication;
 
-import com.jobs.job_vacancies.entities.Candidate;
+import com.jobs.job_vacancies.entities.registeredPerson.Candidate;
 import com.jobs.job_vacancies.entities.Vacancy;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,9 +22,11 @@ public class VacancyApplication {
    @GeneratedValue(strategy = GenerationType.UUID)
    private UUID id;
    private LocalDate applicationDate;
-   @OneToOne
+   @ManyToOne
+   @JoinColumn(name = "candidate_id")
    private Candidate candidate;
-   @OneToOne
+   @ManyToOne
+   @JoinColumn(name = "vacancy_id")
    private Vacancy vacancy;
    private Status status;
 }
