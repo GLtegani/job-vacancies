@@ -22,7 +22,12 @@ public class VacancyService {
          throw new VacancyAlreadyExistException();
       }
 
-      Vacancy newVacancy = new Vacancy(vacancyDTO.name(), vacancyDTO.description(), vacancyDTO.salary());
+      Vacancy newVacancy = new Vacancy(
+              vacancyDTO.name(),
+              vacancyDTO.description(),
+              vacancyDTO.salary(),
+              vacancyDTO.recruiter()
+      );
       saveVacancy(newVacancy);
       return this.repository.save(newVacancy);
    }

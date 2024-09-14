@@ -5,6 +5,7 @@ import com.jobs.job_vacancies.entities.vacancyApplication.VacancyApplication;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -15,12 +16,8 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode("id")
-public class Candidate {
-   @Id
-   @GeneratedValue(strategy = GenerationType.UUID)
-   private UUID id;
-   private String name;
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+public class Candidate extends RegisteredPerson {
    private String curriculumPath;
    @ManyToMany
    @JoinTable(
@@ -33,4 +30,9 @@ public class Candidate {
    @Setter(AccessLevel.NONE)
    @OneToMany(mappedBy = "candidate")
    private final Set<VacancyApplication> vacancyApplication = new HashSet<>();
+
+   public Candidate(String name, LocalDate birthDay, RegisterType registerType, String curriculumPath) {
+      super(name, birthDay, registerType);
+      this.curriculumPath = curriculumPath;
+   }
 }

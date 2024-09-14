@@ -1,5 +1,6 @@
 package com.jobs.job_vacancies.entities.vacancyApplication;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jobs.job_vacancies.entities.registeredPerson.Candidate;
 import com.jobs.job_vacancies.entities.Vacancy;
 import jakarta.persistence.*;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -21,7 +23,8 @@ public class VacancyApplication {
    @Id
    @GeneratedValue(strategy = GenerationType.UUID)
    private UUID id;
-   private LocalDate applicationDate;
+   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+   private LocalDateTime applicationDate;
    @ManyToOne
    @JoinColumn(name = "candidate_id")
    private Candidate candidate;

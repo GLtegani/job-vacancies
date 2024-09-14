@@ -1,11 +1,9 @@
 package com.jobs.job_vacancies.repositories;
 
-import com.jobs.job_vacancies.entities.registeredPerson.Candidate;
+import com.jobs.job_vacancies.entities.registeredPerson.RegisterType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
-public interface CandidateRepository extends JpaRepository<Candidate, UUID> {
+public interface RegisterTypeRepository extends JpaRepository<RegisterType, Long> {
 }

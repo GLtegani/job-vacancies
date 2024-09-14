@@ -1,7 +1,6 @@
 package com.jobs.job_vacancies.entities.registeredPerson;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -12,6 +11,8 @@ import lombok.*;
 @Setter
 @EqualsAndHashCode
 public class RegisterType {
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
    private String description;
 
