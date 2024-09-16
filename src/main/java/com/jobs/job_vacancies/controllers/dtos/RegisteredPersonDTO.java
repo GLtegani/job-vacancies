@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public record RegisteredPersonDTO(
         @NotBlank String name,
         @NotNull  LocalDate birthDay,
+        @NotBlank String email,
         @NotNull RegisterType.Enum registerType,
         String curriculumPath,
         String enterprise
@@ -22,6 +23,7 @@ public record RegisteredPersonDTO(
         return new Candidate(
                 this.name,
                 this.birthDay,
+                this.email,
                 this.registerType.get(),
                 this.curriculumPath
         );
@@ -31,6 +33,7 @@ public record RegisteredPersonDTO(
         return new Recruiter(
             this.name,
             this.birthDay,
+            this.email,
             this.registerType.get(),
             this.enterprise
         );

@@ -28,12 +28,7 @@ public class VacancyService {
               vacancyDTO.salary(),
               vacancyDTO.recruiter()
       );
-      saveVacancy(newVacancy);
       return this.repository.save(newVacancy);
-   }
-
-   public final void saveVacancy(Vacancy vacancy) {
-      this.repository.save(vacancy);
    }
 
    public final List<Vacancy> findAllVacancies() {

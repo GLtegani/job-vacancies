@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @Table(name = "tb_registered_person")
 @Inheritance(strategy = InheritanceType.JOINED)
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode
 public abstract class RegisteredPerson {
    @Id
    @GeneratedValue(strategy = GenerationType.UUID)
@@ -25,10 +25,12 @@ public abstract class RegisteredPerson {
    @ManyToOne
    @JoinColumn(name = "register_type_id")
    private RegisterType registerType;
+   private String email;
 
-   public RegisteredPerson(String name, LocalDate birthDay, RegisterType registerType) {
+   public RegisteredPerson(String name, LocalDate birthDay, String email, RegisterType registerType) {
       this.name = name;
       this.birthDay = birthDay;
+      this.email = email;
       this.registerType = registerType;
    }
 }

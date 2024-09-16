@@ -16,7 +16,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(callSuper = true)
 public class Candidate extends RegisteredPerson {
    private String curriculumPath;
    @ManyToMany
@@ -31,8 +31,8 @@ public class Candidate extends RegisteredPerson {
    @OneToMany(mappedBy = "candidate")
    private final Set<VacancyApplication> vacancyApplication = new HashSet<>();
 
-   public Candidate(String name, LocalDate birthDay, RegisterType registerType, String curriculumPath) {
-      super(name, birthDay, registerType);
+   public Candidate(String name, LocalDate birthDay, String email, RegisterType registerType, String curriculumPath) {
+      super(name, birthDay, email, registerType);
       this.curriculumPath = curriculumPath;
    }
 }

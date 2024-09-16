@@ -14,6 +14,6 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = RegisteredPersonValidator.class)
 public @interface ValidRegisteredPerson {
    String message() default "Invalid RegisteredPerson data";
-//   Class<?>[] groups() default {};
-//   Class<? extends Payload>[] payload() default {};
+   Class<?>[] groups() default {};
+   Class<? extends Payload>[] payload() default {};
 }

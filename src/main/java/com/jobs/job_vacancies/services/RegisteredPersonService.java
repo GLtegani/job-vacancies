@@ -2,9 +2,12 @@ package com.jobs.job_vacancies.services;
 
 import com.jobs.job_vacancies.controllers.dtos.RegisteredPersonDTO;
 import com.jobs.job_vacancies.entities.registeredPerson.RegisteredPerson;
+import com.jobs.job_vacancies.exceptions.RegisteredPersonAlreadyExistException;
 import com.jobs.job_vacancies.repositories.RegisteredPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class RegisteredPersonService {
@@ -12,10 +15,21 @@ public class RegisteredPersonService {
     private RegisteredPersonRepository repository;
 
     public final RegisteredPerson createRegisteredPerson(RegisteredPersonDTO dto) {
-        if(dto.registerType().get().getDescription().equals("recruiter")) {
-            return this.repository.save(dto.toRecruiter());
+        boolean isRecruiter = dto.registerType().get().getDescription().equals("recruiter");
+        RegisteredPerson person;
+        if(isRecruiter) {
+            person = dto.toRecruiter();
         } else {
-            return this.repository.save(dto.toCandidate());
+            person = dto.toCandidate();
         }
+
+        Optional<RegisteredPerson> personExist = this.repository.findByEmail(person.getEmail());
+
+        if(personExist.isPresent()) {
+            throw new RegisteredPersonAlreadyExistException();
+        }
+
+        return this.repository.save(person);
     }
+
 }

@@ -16,15 +16,15 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(callSuper = true)
 public class Recruiter extends RegisteredPerson{
     private String enterprise;
     @OneToMany(mappedBy = "recruiter")
     @Setter(AccessLevel.NONE)
     private final Set<Vacancy> vacancies = new HashSet<>();
 
-    public Recruiter(String name, LocalDate birthDay, RegisterType registerType, String enterprise) {
-        super(name, birthDay, registerType);
+    public Recruiter(String name, LocalDate birthDay, String email, RegisterType registerType, String enterprise) {
+        super(name, birthDay, email, registerType);
         this.enterprise = enterprise;
     }
 }
