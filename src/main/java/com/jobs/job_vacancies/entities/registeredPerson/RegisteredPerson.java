@@ -13,9 +13,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @Table(name = "tb_registered_person")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 @EqualsAndHashCode(of = "id")
-public class RegisteredPerson {
+public abstract class RegisteredPerson {
    @Id
    @GeneratedValue(strategy = GenerationType.UUID)
    private UUID id;

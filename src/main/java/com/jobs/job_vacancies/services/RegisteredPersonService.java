@@ -1,8 +1,6 @@
 package com.jobs.job_vacancies.services;
 
 import com.jobs.job_vacancies.controllers.dtos.RegisteredPersonDTO;
-import com.jobs.job_vacancies.entities.registeredPerson.Candidate;
-import com.jobs.job_vacancies.entities.registeredPerson.Recruiter;
 import com.jobs.job_vacancies.entities.registeredPerson.RegisteredPerson;
 import com.jobs.job_vacancies.repositories.RegisteredPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,10 @@ public class RegisteredPersonService {
     private RegisteredPersonRepository repository;
 
     public final RegisteredPerson createRegisteredPerson(RegisteredPersonDTO dto) {
-        return this.repository.save(dto.toRecruiter());
+        if(dto.registerType().get().getDescription().equals("recruiter")) {
+            return this.repository.save(dto.toRecruiter());
+        } else {
+            return this.repository.save(dto.toCandidate());
+        }
     }
 }
