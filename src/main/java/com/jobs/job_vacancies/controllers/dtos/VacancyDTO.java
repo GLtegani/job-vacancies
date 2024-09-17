@@ -10,6 +10,6 @@ public record VacancyDTO(
         @NotBlank String name,
         @NotBlank String description,
         @NotNull BigDecimal salary,
-        @NotNull Recruiter recruiter
+        @NotBlank String recruiterEmail
         ) {
 }

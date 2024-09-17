@@ -2,6 +2,8 @@ package com.jobs.job_vacancies.services;
 
 import com.jobs.job_vacancies.controllers.dtos.VacancyDTO;
 import com.jobs.job_vacancies.entities.Vacancy;
+import com.jobs.job_vacancies.entities.registeredPerson.Recruiter;
+import com.jobs.job_vacancies.exceptions.PersonNotFoundException;
 import com.jobs.job_vacancies.exceptions.VacancyAlreadyExistException;
 import com.jobs.job_vacancies.repositories.VacancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +17,18 @@ public class VacancyService {
    @Autowired
    private VacancyRepository repository;
 
-   public final Vacancy createVacancy(VacancyDTO vacancyDTO) {
-      Optional<Vacancy> vacancy = this.repository.findByDescription(vacancyDTO.description());
-
-      if(vacancy.isPresent()) {
-         throw new VacancyAlreadyExistException();
-      }
-
+   public final Vacancy createVacancy(VacancyDTO vacancyDTO, Recruiter recruiter) {
       Vacancy newVacancy = new Vacancy(
               vacancyDTO.name(),
               vacancyDTO.description(),
               vacancyDTO.salary(),
-              vacancyDTO.recruiter()
+              recruiter
       );
       return this.repository.save(newVacancy);
+   }
+
+   public final Vacancy findByDescription(String description) {
+      return this.repository.findByDescription(description).orElse(null);
    }
 
    public final List<Vacancy> findAllVacancies() {

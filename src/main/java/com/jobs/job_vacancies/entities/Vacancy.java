@@ -1,5 +1,6 @@
 package com.jobs.job_vacancies.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jobs.job_vacancies.entities.registeredPerson.Candidate;
 import com.jobs.job_vacancies.entities.registeredPerson.Recruiter;
 import com.jobs.job_vacancies.entities.vacancyApplication.VacancyApplication;
@@ -34,6 +35,7 @@ public class Vacancy {
    private Set<VacancyApplication> vacancyApplications = new HashSet<>();
    @ManyToOne
    @JoinColumn(name = "recruiter_id")
+   @JsonIgnore
    private Recruiter recruiter;
 
    public Vacancy(String name, String description, BigDecimal salary, Recruiter recruiter) {

@@ -16,12 +16,6 @@ public class VacancyController {
    @Autowired
    private VacancyService vacancyService;
 
-   @PostMapping
-   public final ResponseEntity<Vacancy> createVacancy(@RequestBody @Valid VacancyDTO vacancyDTO) {
-      Vacancy vacancy = this.vacancyService.createVacancy(vacancyDTO);
-      return ResponseEntity.ok(vacancy);
-   }
-
    @GetMapping
    public final ResponseEntity<List<Vacancy>> findAllVacancies() {
       List<Vacancy> vacancies = this.vacancyService.findAllVacancies();

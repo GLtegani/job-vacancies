@@ -7,6 +7,7 @@ import com.jobs.job_vacancies.repositories.RegisteredPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,6 +31,10 @@ public class RegisteredPersonService {
         }
 
         return this.repository.save(person);
+    }
+
+    public final List<RegisteredPerson> findAllRegisteredPeople() {
+        return this.repository.findAll();
     }
 
 }

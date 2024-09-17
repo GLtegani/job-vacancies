@@ -5,15 +5,12 @@ import com.jobs.job_vacancies.entities.registeredPerson.RegisteredPerson;
 import com.jobs.job_vacancies.services.RegisteredPersonService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/registered-person")
@@ -27,9 +24,16 @@ public class RegisteredPersonController {
     ) {
         RegisteredPerson registeredPerson = this.registeredPersonService.createRegisteredPerson(dto);
         URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/registered-person")
-                .buildAndExpand(registeredPerson.getId()).toUri();
+           .fromCurrentRequest()
+           .path("/registered-person")
+           .buildAndExpand(registeredPerson.getId())
+           .toUri();
         return ResponseEntity.created(uri).body(registeredPerson);
+    }
+
+    @GetMapping
+    public final ResponseEntity<List<RegisteredPerson>> findAllRegisteredPeople() {
+        List<RegisteredPerson> registeredPeople = this.registeredPersonService.findAllRegisteredPeople();
+        return ResponseEntity.ok(registeredPeople);
     }
 }
