@@ -17,14 +17,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode
 public class Vacancy {
    @Id
    @GeneratedValue(strategy = GenerationType.UUID)
-   @EqualsAndHashCode.Include
    private UUID id;
    private String name;
-   @EqualsAndHashCode.Include
    private String description;
    private BigDecimal salary;
    @ManyToMany(mappedBy = "appliedVacancies")
@@ -43,5 +41,10 @@ public class Vacancy {
       this.description = description;
       this.salary = salary;
       this.recruiter = recruiter;
+   }
+
+   public final void receiverVacancyApply(Candidate candidate, VacancyApplication vacancyApplication) {
+      this.getCandidates().add(candidate);
+      this.getVacancyApplications().add(vacancyApplication);
    }
 }

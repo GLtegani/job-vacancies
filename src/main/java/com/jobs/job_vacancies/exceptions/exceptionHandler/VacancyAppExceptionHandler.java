@@ -32,4 +32,14 @@ public class VacancyAppExceptionHandler {
    public final ProblemDetail handleVacancyAlreadyExistException(VacancyAlreadyExistException e) {
       return e.toProblemDetail();
    }
+
+   @ExceptionHandler(VacancyAlreadyAppliedException.class)
+   public final ProblemDetail handleVacancyAlreadyAppliedException(VacancyAlreadyAppliedException e) {
+      return e.toProblemDetail();
+   }
+
+   @ExceptionHandler(VacancyDoesNotExistException.class)
+   public final ProblemDetail handleVacancyDoesNotExistException(VacancyDoesNotExistException e) {
+      return e.toProblemDetail();
+   }
 }

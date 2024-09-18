@@ -32,4 +32,11 @@ public class VacancyApplication {
    @JoinColumn(name = "vacancy_id")
    private Vacancy vacancy;
    private Status status;
+
+   public VacancyApplication(LocalDateTime applicationDate, Candidate candidate, Vacancy vacancy, Status status) {
+      this.applicationDate = applicationDate;
+      this.candidate = candidate;
+      this.vacancy = vacancy;
+      this.status = status;
+   }
 }

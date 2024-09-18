@@ -2,6 +2,7 @@ package com.jobs.job_vacancies.config;
 
 import com.jobs.job_vacancies.entities.registeredPerson.RegisterType;
 import com.jobs.job_vacancies.repositories.RegisterTypeRepository;
+import com.jobs.job_vacancies.services.RegisterTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -13,12 +14,10 @@ import java.util.Arrays;
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
     @Autowired
-    private RegisterTypeRepository registerTypeRepository;
+    private RegisterTypeService registerTypeService;
 
     @Override
     public void run(String... args) throws Exception {
-        Arrays.stream(RegisterType.Enum.values())
-                .forEach(registerType -> this.registerTypeRepository.save(registerType.get())
-        );
+        this.registerTypeService.createRegisterType();
     }
 }

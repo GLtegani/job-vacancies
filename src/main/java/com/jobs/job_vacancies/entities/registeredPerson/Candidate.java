@@ -1,11 +1,14 @@
 package com.jobs.job_vacancies.entities.registeredPerson;
 
 import com.jobs.job_vacancies.entities.Vacancy;
+import com.jobs.job_vacancies.entities.vacancyApplication.Status;
 import com.jobs.job_vacancies.entities.vacancyApplication.VacancyApplication;
+import com.jobs.job_vacancies.exceptions.VacancyAlreadyAppliedException;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -34,5 +37,15 @@ public class Candidate extends RegisteredPerson {
    public Candidate(String name, LocalDate birthDay, String email, RegisterType registerType, String curriculumPath) {
       super(name, birthDay, email, registerType);
       this.curriculumPath = curriculumPath;
+   }
+
+   public final void vacancyApply(Vacancy vacancy) {
+      if(this.getAppliedVacancies().contains(vacancy)) {
+         throw new VacancyAlreadyAppliedException();
+      }
+
+      this.getAppliedVacancies().add(vacancy);
+      VacancyApplication application = new VacancyApplication(LocalDateTime.now(), this, vacancy, Status.PENDING);
+      this.getVacancyApplication().add(application);
    }
 }

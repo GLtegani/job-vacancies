@@ -34,4 +34,13 @@ public class VacancyService {
    public final List<Vacancy> findAllVacancies() {
       return this.repository.findAll();
    }
+
+   public final boolean vacancyIsPresent(VacancyDTO dto) {
+      Vacancy vacancy = this.findByDescription(dto.description());
+      if(vacancy == null) {
+         return false;
+      }
+
+      return true;
+   }
 }
