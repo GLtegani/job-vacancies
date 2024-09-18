@@ -17,4 +17,5 @@ public class RegisterTypeService {
           .stream(RegisterType.Enum.values())
           .forEach(registerType -> this.repository.save(registerType.get()));
    }
+
 }

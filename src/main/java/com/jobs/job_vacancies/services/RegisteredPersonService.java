@@ -1,6 +1,7 @@
 package com.jobs.job_vacancies.services;
 
 import com.jobs.job_vacancies.controllers.dtos.RegisteredPersonDTO;
+import com.jobs.job_vacancies.entities.registeredPerson.RegisterType;
 import com.jobs.job_vacancies.entities.registeredPerson.RegisteredPerson;
 import com.jobs.job_vacancies.exceptions.RegisteredPersonAlreadyExistException;
 import com.jobs.job_vacancies.repositories.RegisteredPersonRepository;
@@ -35,6 +36,11 @@ public class RegisteredPersonService {
 
     public final List<RegisteredPerson> findAllRegisteredPeople() {
         return this.repository.findAll();
+    }
+
+    public final RegisteredPerson findByRegisteredType(RegisterType registerType) {
+        Optional<RegisteredPerson> optionalRegisterType = this.repository.findByRegisterType(registerType);
+        return optionalRegisterType.orElse(null);
     }
 
 }

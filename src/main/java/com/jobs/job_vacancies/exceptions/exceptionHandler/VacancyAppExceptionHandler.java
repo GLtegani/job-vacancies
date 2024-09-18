@@ -42,4 +42,9 @@ public class VacancyAppExceptionHandler {
    public final ProblemDetail handleVacancyDoesNotExistException(VacancyDoesNotExistException e) {
       return e.toProblemDetail();
    }
+
+   @ExceptionHandler(IllegalRecruiterAccessException.class)
+   public final ProblemDetail handleIllegalAccessException(IllegalRecruiterAccessException e) {
+      return e.toProblemDetail();
+   }
 }

@@ -39,7 +39,7 @@ public class Candidate extends RegisteredPerson {
       this.curriculumPath = curriculumPath;
    }
 
-   public final void vacancyApply(Vacancy vacancy) {
+   public final VacancyApplication vacancyApply(Vacancy vacancy) {
       if(this.getAppliedVacancies().contains(vacancy)) {
          throw new VacancyAlreadyAppliedException();
       }
@@ -47,5 +47,6 @@ public class Candidate extends RegisteredPerson {
       this.getAppliedVacancies().add(vacancy);
       VacancyApplication application = new VacancyApplication(LocalDateTime.now(), this, vacancy, Status.PENDING);
       this.getVacancyApplication().add(application);
+      return application;
    }
 }
