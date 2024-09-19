@@ -21,26 +21,31 @@ public class RecruiterService {
     private VacancyService vacancyService;
 
     public final Recruiter createVacancy(VacancyDTO dto) {
-        Optional<Recruiter> optionalRecruiter = this.repository.findByEmail(dto.recruiterEmail());
-        Vacancy vacancy = this.vacancyService.findByDescription(dto.description());
-        boolean vacancyExist = vacancy != null;
-        boolean recruiterExist = optionalRecruiter.isPresent();
+        Recruiter optionalRecruiter = this.findRecruiterByEmail(dto.recruiterEmail());
+        boolean recruiterExist = optionalRecruiter != null;
 
         if(!recruiterExist) {
             throw new PersonNotFoundException();
         }
 
-        optionalRecruiter.get().addVacancy(vacancy);
+        Vacancy vacancy = this.vacancyService.findByDescription(dto.description());
+        boolean vacancyExist = vacancy != null;
 
-        if(vacancyExist) {
+        if(!vacancyExist) {
+            Vacancy newVacancy = this.vacancyService.createVacancy(dto, optionalRecruiter);
+            optionalRecruiter.addVacancy(newVacancy);
+            return optionalRecruiter;
+        } else {
             throw new VacancyAlreadyExistException();
         }
-
-        return optionalRecruiter.get();
     }
 
     public final List<Recruiter> findAllRecruiters() {
         return this.repository.findAll();
+    }
+
+    public final Recruiter findRecruiterByEmail(String email) {
+        return this.repository.findByEmail(email).orElse(null);
     }
 
 }
