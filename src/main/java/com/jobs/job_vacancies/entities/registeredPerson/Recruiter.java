@@ -27,4 +27,8 @@ public class Recruiter extends RegisteredPerson{
         super(name, birthDay, email, registerType);
         this.enterprise = enterprise;
     }
+
+    public final void addVacancy(Vacancy vacancy) {
+        this.vacancies.add(vacancy);
+    }
 }

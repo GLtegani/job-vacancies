@@ -35,8 +35,8 @@ public class VacancyService {
       return this.repository.findAll();
    }
 
-   public final boolean vacancyIsPresent(VacancyDTO dto) {
-      Vacancy vacancy = this.findByDescription(dto.description());
+   public final boolean vacancyIsPresent(String description) {
+      Vacancy vacancy = this.findByDescription(description);
       if(vacancy == null) {
          return false;
       }

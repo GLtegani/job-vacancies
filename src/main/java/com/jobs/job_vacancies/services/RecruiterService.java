@@ -20,7 +20,7 @@ public class RecruiterService {
     @Autowired
     private VacancyService vacancyService;
 
-    public final Vacancy createVacancy(VacancyDTO dto) {
+    public final Recruiter createVacancy(VacancyDTO dto) {
         Optional<Recruiter> optionalRecruiter = this.repository.findByEmail(dto.recruiterEmail());
         Vacancy vacancy = this.vacancyService.findByDescription(dto.description());
         boolean vacancyExist = vacancy != null;
@@ -30,11 +30,13 @@ public class RecruiterService {
             throw new PersonNotFoundException();
         }
 
+        optionalRecruiter.get().addVacancy(vacancy);
+
         if(vacancyExist) {
             throw new VacancyAlreadyExistException();
         }
 
-        return this.vacancyService.createVacancy(dto, optionalRecruiter.get());
+        return optionalRecruiter.get();
     }
 
     public final List<Recruiter> findAllRecruiters() {

@@ -20,14 +20,14 @@ public class RecruiterController {
    private RecruiterService recruiterService;
 
    @PostMapping(value = "/create-vacancy")
-   public final ResponseEntity<Vacancy> createVacancy(@RequestBody @Valid VacancyDTO dto) {
-      Vacancy vacancy = this.recruiterService.createVacancy(dto);
+   public final ResponseEntity<Recruiter> createVacancy(@RequestBody @Valid VacancyDTO dto) {
+      Recruiter recruiter = this.recruiterService.createVacancy(dto);
       URI uri = ServletUriComponentsBuilder
          .fromCurrentRequest()
          .path("/create-vacancy")
-         .buildAndExpand(vacancy.getRecruiter())
+         .buildAndExpand(recruiter)
          .toUri();
-      return ResponseEntity.created(uri).body(vacancy);
+      return ResponseEntity.created(uri).body(recruiter);
    }
 
    @GetMapping

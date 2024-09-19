@@ -1,5 +1,6 @@
 package com.jobs.job_vacancies.entities.registeredPerson;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jobs.job_vacancies.entities.Vacancy;
 import com.jobs.job_vacancies.entities.vacancyApplication.Status;
 import com.jobs.job_vacancies.entities.vacancyApplication.VacancyApplication;
@@ -29,9 +30,11 @@ public class Candidate extends RegisteredPerson {
            inverseJoinColumns = @JoinColumn(name = "vacancy_id")
    )
    @Setter(AccessLevel.NONE)
+   @JsonIgnore
    private final Set<Vacancy> appliedVacancies = new HashSet<>();
    @Setter(AccessLevel.NONE)
    @OneToMany(mappedBy = "candidate")
+   @JsonIgnore
    private final Set<VacancyApplication> vacancyApplication = new HashSet<>();
 
    public Candidate(String name, LocalDate birthDay, String email, RegisterType registerType, String curriculumPath) {
@@ -39,14 +42,12 @@ public class Candidate extends RegisteredPerson {
       this.curriculumPath = curriculumPath;
    }
 
-   public final VacancyApplication vacancyApply(Vacancy vacancy) {
+   public final void vacancyApply(Vacancy vacancy, VacancyApplication application) {
       if(this.getAppliedVacancies().contains(vacancy)) {
          throw new VacancyAlreadyAppliedException();
       }
 
       this.getAppliedVacancies().add(vacancy);
-      VacancyApplication application = new VacancyApplication(LocalDateTime.now(), this, vacancy, Status.PENDING);
       this.getVacancyApplication().add(application);
-      return application;
    }
 }

@@ -1,6 +1,7 @@
 package com.jobs.job_vacancies.entities.vacancyApplication;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jobs.job_vacancies.entities.registeredPerson.Candidate;
 import com.jobs.job_vacancies.entities.Vacancy;
 import jakarta.persistence.*;
@@ -29,6 +30,7 @@ public class VacancyApplication {
    @JoinColumn(name = "candidate_id")
    private Candidate candidate;
    @ManyToOne
+   @JsonIgnore
    @JoinColumn(name = "vacancy_id")
    private Vacancy vacancy;
    private Status status;
