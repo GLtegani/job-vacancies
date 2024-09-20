@@ -21,6 +21,7 @@ public class Recruiter extends RegisteredPerson{
     private String enterprise;
     @OneToMany(mappedBy = "recruiter")
     @Setter(AccessLevel.NONE)
+    @EqualsAndHashCode.Exclude
     private final Set<Vacancy> vacancies = new HashSet<>();
 
     public Recruiter(String name, LocalDate birthDay, String email, RegisterType registerType, String enterprise) {

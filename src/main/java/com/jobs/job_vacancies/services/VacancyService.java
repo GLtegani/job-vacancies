@@ -43,4 +43,8 @@ public class VacancyService {
 
       return true;
    }
+
+   public final void saveVacancy(Vacancy vacancy) {
+      this.repository.save(vacancy);
+   }
 }

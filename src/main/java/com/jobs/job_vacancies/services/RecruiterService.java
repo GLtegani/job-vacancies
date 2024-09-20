@@ -16,9 +16,10 @@ import java.util.Optional;
 public class RecruiterService {
     @Autowired
     private RecruiterRepository repository;
-
     @Autowired
     private VacancyService vacancyService;
+    @Autowired
+    private RegisteredPersonService registeredPersonService;
 
     public final Recruiter createVacancy(VacancyDTO dto) {
         Recruiter optionalRecruiter = this.findRecruiterByEmail(dto.recruiterEmail());
@@ -34,6 +35,7 @@ public class RecruiterService {
         if(!vacancyExist) {
             Vacancy newVacancy = this.vacancyService.createVacancy(dto, optionalRecruiter);
             optionalRecruiter.addVacancy(newVacancy);
+            this.registeredPersonService.saveRegisteredPerson(optionalRecruiter);
             return optionalRecruiter;
         } else {
             throw new VacancyAlreadyExistException();
@@ -47,5 +49,4 @@ public class RecruiterService {
     public final Recruiter findRecruiterByEmail(String email) {
         return this.repository.findByEmail(email).orElse(null);
     }
-
 }

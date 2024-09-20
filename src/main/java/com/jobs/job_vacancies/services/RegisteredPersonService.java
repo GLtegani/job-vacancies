@@ -43,4 +43,8 @@ public class RegisteredPersonService {
         return optionalRegisterType.orElse(null);
     }
 
+    public final void saveRegisteredPerson(RegisteredPerson registeredPerson) {
+        this.repository.save(registeredPerson);
+    }
+
 }

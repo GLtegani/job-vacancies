@@ -20,4 +20,8 @@ public class VacancyApplicationService {
       VacancyApplication vacancyApplication = new VacancyApplication(LocalDateTime.now(), candidate, vacancy, status);
       return this.repository.save(vacancyApplication);
    }
+
+   public final void saveVacancyApplication(VacancyApplication vacancyApplication) {
+      this.repository.save(vacancyApplication);
+   }
 }

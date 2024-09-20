@@ -31,6 +31,7 @@ public class Candidate extends RegisteredPerson {
    )
    @Setter(AccessLevel.NONE)
    @JsonIgnore
+   @EqualsAndHashCode.Exclude
    private final Set<Vacancy> appliedVacancies = new HashSet<>();
    @Setter(AccessLevel.NONE)
    @OneToMany(mappedBy = "candidate")

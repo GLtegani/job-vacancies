@@ -36,6 +36,10 @@ public class CandidateService {
       VacancyApplication vacancyApplication = this.vacancyApplicationService.createVacancyApplication(candidateApplying, vacancy, Status.PENDING);
       candidateApplying.vacancyApply(vacancy, vacancyApplication);
       vacancy.receiverVacancyApply(candidateApplying, vacancyApplication);
+
+      this.registeredPersonService.saveRegisteredPerson(candidateApplying);
+      this.vacancyService.saveVacancy(vacancy);
+      this.vacancyApplicationService.saveVacancyApplication(vacancyApplication);
       return candidateApplying;
    }
 
